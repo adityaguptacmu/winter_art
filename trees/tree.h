@@ -25,8 +25,6 @@ void printPaths(struct node* node);
 void printPathsRecur(struct node* node, int path[], int pathLen);
 void printArray(int ints[], int len);
 //
-
-
 void mirror(struct node* node);
 void doubleTree(struct node* node);
 int sameTree(struct node* a, struct node* b);
