@@ -151,6 +151,23 @@ int minValue(struct node* node)
 
 }
 
+int maxValue(struct node* node)
+{
+  if(node == NULL)
+  {
+    return 0;
+  }
+
+  if(node->right == NULL)
+  {
+    return node->data;
+  }
+  else
+  {
+    return maxValue(node->right);
+  }
+}
+
 void printTree(struct node* node)
 {
   if(node == NULL)
@@ -312,7 +329,10 @@ int countTrees(int numKeys)
   return 1;
 }
 
-
+int isBST(struct node* node)
+{
+  return 1;
+}
 
 
 
