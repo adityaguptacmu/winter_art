@@ -28,7 +28,7 @@ struct node* insert(struct node* node, int data)
   }
   else
   {
-    if(data < node->data)
+    if(data <= node->data)
     {
       node->left = insert(node->left, data);
     }
@@ -331,7 +331,29 @@ int countTrees(int numKeys)
 
 int isBST(struct node* node)
 {
-  return 1;
+  if(node == NULL)
+  {
+    return 1;
+  }
+  else
+  {
+    if((node->left != NULL) && (minValue(node->left) > node->data))
+    {
+      return 0;
+    }
+
+    if((node->right != NULL) && (maxValue(node->right) <= node->data))
+    {
+      return 0;
+    }
+
+    if(!isBST(node->left) || !isBST(node->right))
+    {
+      return 0;
+    }
+
+    return 1;
+  }
 }
 
 
