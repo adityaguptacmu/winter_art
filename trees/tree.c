@@ -133,6 +133,11 @@ int maxDepth(struct node* node)
   }
 }
 
+/**
+ * [minValue description]
+ * @param  node [description]
+ * @return      [description]
+ */
 int minValue(struct node* node)
 {
   if(node == NULL)
@@ -151,6 +156,11 @@ int minValue(struct node* node)
 
 }
 
+/**
+ * [maxValue description]
+ * @param  node [description]
+ * @return      [description]
+ */
 int maxValue(struct node* node)
 {
   if(node == NULL)
@@ -168,6 +178,10 @@ int maxValue(struct node* node)
   }
 }
 
+/**
+ * [printTree description]
+ * @param node [description]
+ */
 void printTree(struct node* node)
 {
   if(node == NULL)
@@ -182,7 +196,10 @@ void printTree(struct node* node)
   }
 }
 
-
+/**
+ * [printPostorder description]
+ * @param node [description]
+ */
 void printPostorder(struct node* node)
 {
   if(node == NULL)
@@ -197,6 +214,12 @@ void printPostorder(struct node* node)
   }
 }
 
+/**
+ * [hasPathSum description]
+ * @param  node [description]
+ * @param  sum  [description]
+ * @return      [description]
+ */
 int hasPathSum(struct node* node, int sum)
 {
   int temp = 0;
@@ -222,12 +245,22 @@ int hasPathSum(struct node* node, int sum)
   return 0;
 }
 
+/**
+ * [printPaths description]
+ * @param node [description]
+ */
 void printPaths(struct node* node)
 {
   int path[1000];
   printPathsRecur(node, path, 0);
 }
 
+/**
+ * [printPathsRecur description]
+ * @param node    [description]
+ * @param path    [description]
+ * @param pathLen [description]
+ */
 void printPathsRecur(struct node* node, int path[], int pathLen)
 {
   if (node==NULL)
@@ -249,6 +282,11 @@ void printPathsRecur(struct node* node, int path[], int pathLen)
   }
 }
 
+/**
+ * [printArray description]
+ * @param ints [description]
+ * @param len  [description]
+ */
 void printArray(int ints[], int len)
 {
   int i;
@@ -259,6 +297,10 @@ void printArray(int ints[], int len)
   printf("\n");
 }
 
+/**
+ * [mirror description]
+ * @param node [description]
+ */
 void mirror(struct node* node)
 {
   struct node* temp;
@@ -278,6 +320,10 @@ void mirror(struct node* node)
 
 }
 
+/**
+ * [doubleTree description]
+ * @param node [description]
+ */
 void doubleTree(struct node* node)
 {
   if(node == NULL)
@@ -298,6 +344,12 @@ void doubleTree(struct node* node)
   return;
 }
 
+/**
+ * [sameTree description]
+ * @param  a [description]
+ * @param  b [description]
+ * @return   [description]
+ */
 int sameTree(struct node* a, struct node* b)
 {
   // int retval_left = 0;
@@ -324,11 +376,21 @@ int sameTree(struct node* a, struct node* b)
   }
 }
 
+/**
+ * [countTrees description]
+ * @param  numKeys [description]
+ * @return         [description]
+ */
 int countTrees(int numKeys)
 {
   return 1;
 }
 
+/**
+ * [isBST description]
+ * @param  node [description]
+ * @return      [description]
+ */
 int isBST(struct node* node)
 {
   if(node == NULL)

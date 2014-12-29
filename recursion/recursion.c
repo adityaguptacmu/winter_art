@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
 {
   /* code */
   printf("Cannonball(5):[%d]\n",Cannonball(5));
-  printf("RaiseIntToPower(3,3):[%d]\n",RaiseIntToPower(3,3));
+  printf("RaiseIntToPower(1,12345):[%d]\n",RaiseIntToPower(1,12345));
   printf("GCD(39,13):[%d]\n",GCD(39, 13));
   printf("Fib(6):[%d]\n",Fib(6));
   printf("DigitSum(1234):[%d]\n",DigitSum(1234));
@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
   char *input1 = malloc(strlen(given1)+1*sizeof(char));
   strcpy(input1,given1);
 
-  printf("Reverse(input1):[%d]\n",Reverse(input1));
+  // printf("Reverse(input1):[%d]\n",Reverse(input1));
   return 0;
 }
 
@@ -192,14 +192,14 @@ int Combinations(int x, int y)
   }
 }
 
-void Reverse(char* str)
-{
-  if(str == NULL || )
-  {
-    return;
-  }
-  return;
-}
+// void Reverse(char* str)
+// {
+//   if(str == NULL || )
+//   {
+//     return;
+//   }
+//   return;
+// }
 
 
 
