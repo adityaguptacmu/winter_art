@@ -3,23 +3,27 @@
 #include <string.h>
 #include <assert.h>
 #include "new.h"
+#include "Set.h"
 
-void * add(void * _set, const void * _element)
+static void print_heap(void);
+
+void* add(void* _set, const void* _element)
 {
-  int * set = _set;
-  const int * element = _element;
-
+  // print_heap();
+  int* set = _set;
+  const int* element = _element;
+  // printf("set:[%p], heap:[%p]\n", _set, heap);
   assert(set > heap && set < heap + MANY);
   assert(* set == MANY);
   assert(element > heap && element < heap + MANY);
 
   if (* element == MANY)
   {
-    * (int *) element = set — heap;
+    * (int *) element = set - heap;
   }
   else
   {
-    assert(* element == set — heap);
+    assert(* element == set - heap);
   }
 
   return (void *) element;
@@ -36,7 +40,7 @@ void * find(const void * _set, const void * _element)
   assert(element > heap && element < heap + MANY);
   assert(* element);
 
-  return * element == set — heap ? (void *) element : 0;
+  return (* element == set - heap ? (void *)element : 0);
 }
 
 int contains(const void * _set, const void * _element)
@@ -61,6 +65,14 @@ int differ(const void * a, const void * b)
   return a != b;
 }
 
+static void print_heap(void)
+{
+  int i = 0;
+  for(i = 0; i<MANY; i++)
+  {
+    printf("[%p] - heap[%d]:[%d]\n",&heap[i],i,heap[i]);
+  }
+}
 
 
 

@@ -2,40 +2,62 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include "new.h"
 
-#if !defined MANY || MANY < 1
-#define MANY 10
-#endif
+int heap[MANY];
 
-static int heap[MANY];
+static void print_heap(void);
 
-void * new(const void * type, ...)
+void* new(const void * type, ...)
 {
-  int * p; /* & heap[1..] */
+  int* p; /* & heap[1..] --> our imaginary heap */
 
-  for (p = heap + 1; p < heap + MANY; ++p)
+  // check for empty heap
+  for(p = heap + 1; p < heap + MANY; ++p)
   {
-    if (! * p)
+    // if it is empty, break out
+    if(!*p)
     {
       break;
     }
   }
+
+  // make sure it is within heap
   assert(p < heap + MANY);
+  assert(p > heap);
 
-  * p = MANY;
-
+  *p = MANY;
+  // print_heap();
   return p;
 }
 
 
-void delete (void * _item)
+void delete(void* _item)
 {
-  int * item = _item;
+  int* item = _item;
 
-  if (item)
+  if(item)
   {
     assert(item > heap && item < heap + MANY);
-    * item = 0;
+    *item = 0;
   }
 
 }
+
+static void print_heap(void)
+{
+  int i = 0;
+  for(i = 0; i<MANY; i++)
+  {
+    printf("[%p] - heap[%d]:[%d]\n",&heap[i],i,heap[i]);
+  }
+}
+
+
+
+
+
+
+
+
+

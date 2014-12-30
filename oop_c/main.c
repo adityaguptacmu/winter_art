@@ -11,25 +11,31 @@ int main(int argc, char const *argv[])
 {
   printf("Hello World!\n");
 
-  void * s = new(Set);
-  void * a = add(s, new(Object));
-  void * b = add(s, new(Object));
-  void * c = new(Object);
+  void* P_s = new(Set);
+  void* P_a = add(P_s, new(Object));
+  void* P_b = add(P_s, new(Object));
+  void* P_c = new(Object);
+  add(P_s, P_c);
 
-  if (contains(s, a) && contains(s, b))
+  printf("Hello World!\n");
+  if (contains(P_s, P_a) && contains(P_s, P_b))
     puts("ok");
 
-  if (contains(s, c))
+  printf("Hello World!\n");
+  if (contains(P_s, P_c))
     puts("contains?");
 
-  if (differ(a, add(s, a)))
+  printf("Hello World!\n");
+  if (differ(P_a, add(P_s, P_a)))
     puts("differ?");
 
-  if (contains(s, drop(s, a)))
+  printf("Hello World!\n");
+  if (contains(P_s, drop(P_s, P_a)))
     puts("drop?");
 
-  delete(drop(s, b));
-  delete(drop(s, c));
+  printf("Hello World!\n");
+  delete(drop(P_s, P_b));
+  delete(drop(P_s, P_c));
 
   return 0;
 }
