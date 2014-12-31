@@ -4,58 +4,22 @@
 #include <assert.h>
 #include "new.h"
 
-int heap[MANY];
-
-static void print_heap(void);
-
-void* new(const void * type, ...)
+void* new(const void* type, ...)
 {
-  int* p; /* & heap[1..] --> our imaginary heap */
+  const size_t size = *(const size_t*)type;
+  printf("size:[%d]\n",(int)size);
+  void * p = calloc(1, size);
 
-  // check for empty heap
-  for(p = heap + 1; p < heap + MANY; ++p)
-  {
-    // if it is empty, break out
-    if(!*p)
-    {
-      break;
-    }
-  }
+  assert(p);
 
-  // make sure it is within heap
-  assert(p < heap + MANY);
-  assert(p > heap);
-
-  *p = MANY;
-  // print_heap();
   return p;
 }
 
 
 void delete(void* _item)
 {
-  int* item = _item;
-
-  if(item)
-  {
-    assert(item > heap && item < heap + MANY);
-    *item = 0;
-  }
-
+  free(_item);
 }
-
-static void print_heap(void)
-{
-  int i = 0;
-  for(i = 0; i<MANY; i++)
-  {
-    printf("[%p] - heap[%d]:[%d]\n",&heap[i],i,heap[i]);
-  }
-}
-
-
-
-
 
 
 

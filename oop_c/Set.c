@@ -5,42 +5,33 @@
 #include "new.h"
 #include "Set.h"
 
-static void print_heap(void);
-
 void* add(void* _set, const void* _element)
 {
-  // print_heap();
-  int* set = _set;
-  const int* element = _element;
-  // printf("set:[%p], heap:[%p]\n", _set, heap);
-  assert(set > heap && set < heap + MANY);
-  assert(* set == MANY);
-  assert(element > heap && element < heap + MANY);
+  struct Set * set = _set;
+  struct Object * element = (void *) _element;
 
-  if (* element == MANY)
-  {
-    * (int *) element = set - heap;
-  }
+  assert(set);
+  assert(element);
+
+  if (!element->in)
+    element->in = set;
   else
-  {
-    assert(* element == set - heap);
-  }
+    assert(element->in == set);
 
-  return (void *) element;
+  ++element->count, ++set->count;
+
+  printf("set->count:[%d]\n",set->count);
+  printf("element->count:[%d]\n",element->count);
+  return element;
 }
 
 
 void * find(const void * _set, const void * _element)
 {
-  const int * set = _set;
-  const int * element = _element;
-
-  assert(set > heap && set < heap + MANY);
-  assert(* set == MANY);
-  assert(element > heap && element < heap + MANY);
-  assert(* element);
-
-  return (* element == set - heap ? (void *)element : 0);
+  const struct Object * element = _element;
+  assert(_set);
+  assert(element);
+  return (element -> in == _set ? (void *) element : 0);
 }
 
 int contains(const void * _set, const void * _element)
@@ -50,13 +41,16 @@ int contains(const void * _set, const void * _element)
 
 void * drop(void * _set, const void * _element)
 {
-  int * element = find(_set, _element);
-
+  struct Set * set = _set;
+  struct Object * element = find(set, _element);
   if (element)
   {
-    * element = MANY;
+    if (--element->count == 0)
+    {
+      element->in = 0;
+      --set->count;
+    }
   }
-
   return element;
 }
 
@@ -65,14 +59,13 @@ int differ(const void * a, const void * b)
   return a != b;
 }
 
-static void print_heap(void)
+unsigned count(const void * _set)
 {
-  int i = 0;
-  for(i = 0; i<MANY; i++)
-  {
-    printf("[%p] - heap[%d]:[%d]\n",&heap[i],i,heap[i]);
-  }
+  const struct Set * set = _set;
+  assert(set);
+  return set -> count;
 }
+
 
 
 
