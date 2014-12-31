@@ -12,12 +12,16 @@ int main(int argc, char const *argv[])
   printf("Hello World!\n");
   printf("*Set:[%d]\n",*(const size_t*)Set);
   printf("*Object:[%d]\n",*(const size_t*)Object);
+  printf("void* P_s = new(Set);\n");
   void* P_s = new(Set);
+  printf("void* P_a = add(P_s, new(Object));\n");
   void* P_a = add(P_s, new(Object));
+  printf("void* P_b = add(P_s, new(Object));\n");
   void* P_b = add(P_s, new(Object));
+  printf("void* P_c = new(Object);\n");
   void* P_c = new(Object);
 
-  // add(P_s, P_c);
+  add(P_s, P_c);
   // void* P_z = new(Set);
   // void* P_x = add(P_z, new(Object));
 

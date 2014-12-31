@@ -43,14 +43,15 @@ void * drop(void * _set, const void * _element)
 {
   struct Set * set = _set;
   struct Object * element = find(set, _element);
-  if (element)
+  if(element)
   {
-    if (--element->count == 0)
+    if(--element->count == 0)
     {
       element->in = 0;
       --set->count;
     }
   }
+
   return element;
 }
 
