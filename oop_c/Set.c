@@ -5,6 +5,11 @@
 #include "new.h"
 #include "Set.h"
 
+/**
+ * [add description]
+ * @param _set     [description]
+ * @param _element [description]
+ */
 void* add(void* _set, const void* _element)
 {
   struct Set * set = _set;
@@ -26,6 +31,12 @@ void* add(void* _set, const void* _element)
 }
 
 
+/**
+ * [find description]
+ * @param  _set     [description]
+ * @param  _element [description]
+ * @return          [description]
+ */
 void * find(const void * _set, const void * _element)
 {
   const struct Object * element = _element;
@@ -34,11 +45,23 @@ void * find(const void * _set, const void * _element)
   return (element -> in == _set ? (void *) element : 0);
 }
 
+/**
+ * [contains description]
+ * @param  _set     [description]
+ * @param  _element [description]
+ * @return          [description]
+ */
 int contains(const void * _set, const void * _element)
 {
   return find(_set, _element) != 0;
 }
 
+/**
+ * [drop description]
+ * @param  _set     [description]
+ * @param  _element [description]
+ * @return          [description]
+ */
 void * drop(void * _set, const void * _element)
 {
   struct Set * set = _set;
@@ -55,11 +78,22 @@ void * drop(void * _set, const void * _element)
   return element;
 }
 
+/**
+ * [differ description]
+ * @param  a [description]
+ * @param  b [description]
+ * @return   [description]
+ */
 int differ(const void * a, const void * b)
 {
   return a != b;
 }
 
+/**
+ * [count description]
+ * @param  _set [description]
+ * @return      [description]
+ */
 unsigned count(const void * _set)
 {
   const struct Set * set = _set;

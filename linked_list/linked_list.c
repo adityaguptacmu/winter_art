@@ -4,11 +4,12 @@
 #include <assert.h>
 #include "hash.h"
 
-#define NO_ELEMENTS 5
+#define NO_ELEMENTS 7
 
 struct node
 {
   int data;
+  // int data2;
   struct node *next;
 };
 
@@ -30,17 +31,37 @@ struct node* SortedIntersect(struct node* a, struct node* b);
 void Reverse(struct node** headRef);
 void RecursiveReverse(struct node** headRef);
 
+// void gfg_q1(struct node** headRef);
+void gfg_q4(struct node** headRef);
+void gfg_q6(struct node** headRef1, struct node** headRef2);
+void gfg_q8(struct node** headRef, int M, int N);
+
 int main(int argc, char const *argv[])
 {
   struct node *head = NULL;
+  // struct node *head2 = NULL;
   // struct node *head_front = NULL;
   // struct node *head_back = NULL;
   // int retval = 0;
 
-  head = create_linked_list();
-  // Push(&head_front, 10);
-  // Push(&head_front, 8);
-  // Push(&head_front, 3);
+  // head1 = create_linked_list();
+  // head2 = create_linked_list();
+  Push(&head, 10);
+  Push(&head, 9);
+  Push(&head, 8);
+  Push(&head, 7);
+  Push(&head, 6);
+  Push(&head, 5);
+  Push(&head, 4);
+  Push(&head, 3);
+  Push(&head, 2);
+  Push(&head, 1);
+
+  // Push(&head2, 12);
+  // Push(&head2, 10);
+  // Push(&head2, 2);
+  // Push(&head2, 4);
+  // Push(&head2, 6);
 
   // Push(&head_back, 10);
   // Push(&head_back, 8);
@@ -49,7 +70,7 @@ int main(int argc, char const *argv[])
   // retval = Pop(&head);
   // printf("[%d]\n",retval);
 
-  // print_linked_list("head_front", &head_front);
+  print_linked_list("main", &head);
   // print_linked_list("head_back", &head_back);
 
   // FrontBackSplit(head, &head_front, &head_back);
@@ -57,16 +78,163 @@ int main(int argc, char const *argv[])
   // head = SortedMerge(head_back, head_front);
   // head = SortedIntersect(head_front, head_back);
   // MergeSort(&head);
-  RecursiveReverse(&head);
-  print_linked_list("head", &head);
+  // RecursiveReverse(&head);
+  gfg_q8(&head, 2, 3);
+  // gfg_q1(&head);
+  // gfg_q4(&head);
+  print_linked_list("main", &head);
+  // print_linked_list("head2", &head2);
+  // gfg_q6(&head1, &head2);
+  // print_linked_list("head1", &head1);
+  // print_linked_list("head2", &head2);
+
   // AlternatingSplit(head,&head_front, &head_back);
   // free_linked_list(head_front);
   // free_linked_list(head_back);
   free_linked_list(head);
+  // free_linked_list(head2);
 
   return 0;
 }
 
+void gfg_q8(struct node** headRef, int M, int N)
+{
+  struct node on_stack;
+  struct node *current = &on_stack;
+  on_stack.next = *headRef;
+  struct node *temp = NULL;
+  int m = M;
+  int n = N;
+
+  if(current == NULL) return;
+
+  while(current != NULL)
+  {
+    if(m > 0)
+    {
+      current = current->next;
+      m--;
+    }
+    else if(n > 0)
+    {
+      temp = current->next;
+      if(temp != NULL)
+      {
+        current->next = temp->next;
+        free(temp);
+        temp = NULL;
+        n--;
+      }
+      else
+      {
+        break;
+      }
+    }
+    else
+    {
+      n = N;
+      m = M;
+    }
+  }
+
+
+
+}
+
+void gfg_q6(struct node** headRef1, struct node** headRef2)
+{
+  struct node *fast = *headRef1;
+  struct node *slow = *headRef1;
+  struct node *list2 = *headRef2;
+  struct node *temp = NULL;
+
+  while(slow != NULL)
+  {
+    fast = slow->next;
+
+    if(list2 == NULL)
+    {
+      break;
+    }
+
+    temp = list2;
+    list2 = list2->next;
+    slow->next = temp;
+    temp->next = fast;
+    slow = fast;
+  }
+  *headRef2 = list2;
+}
+
+
+void gfg_q4(struct node** headRef)
+{
+  struct node *fast = *headRef;
+  struct node *slow = *headRef;
+  struct node *temp = NULL;
+
+  if(slow == NULL) return;
+  if(slow->next == NULL) return;
+
+  fast = slow->next;
+  temp = fast->next;
+
+  fast->next = slow;
+  slow->next = temp;
+  *headRef = fast;
+
+  print_linked_list("g4g_q4", headRef);
+
+  while(slow != NULL && slow->next != NULL)
+  {
+    if(slow->next->next == NULL)
+    {
+      break;
+    }
+
+    fast = slow->next->next;
+    temp = fast->next;
+    slow->next->next = temp;
+    fast->next = slow->next;
+    slow->next = fast;
+    slow= slow->next->next;
+    print_linked_list("g4g_q4_iter", headRef);
+  }
+}
+
+
+// void gfg_q1(struct node** headRef)
+// {
+//   struct node *fast = *headRef;
+//   struct node *slow = *headRef;
+
+//   if(fast == NULL) return;
+//   if(fast->next == NULL) return;
+//   if(fast->next->next == NULL) return;
+
+//   fast = fast->next;
+
+//   while(fast->next != NULL)
+//   {
+//     if((fast->next->data == slow->data) || (fast->next->data2 == slow->data2))
+//     {
+//       printf("same(%d,%d)\n",fast->next->data,fast->next->data2);
+//       fast = fast->next;
+//       if(fast->next == NULL)
+//       {
+//         slow->next = fast;
+//       }
+//     }
+//     else
+//     {
+//       printf("notsame(%d,%d)\n",fast->next->data,fast->next->data2);
+//       slow->next = fast;
+//       slow = fast;
+//       fast = fast->next;
+//     }
+//   }
+//   ;
+// }
 
 void RecursiveReverse(struct node** headRef)
 {
@@ -307,7 +475,9 @@ struct node *create_linked_list()
 
 //int element[NO_ELEMENTS] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
   // int element[NO_ELEMENTS] = {1,2,3,4,5};
-  int element[NO_ELEMENTS] = {5,4,3,2,1};
+  // (0,10)-> (1,10)-> (3,10)-> (10,10)-> (10,8)-> (10,5)-> (20,5)-> (40,5)
+  int element[NO_ELEMENTS] = {1,2,3,4,5,6,7};
+  // int element2[NO_ELEMENTS] ={10,10,10,10, 8, 5, 5, 5};
 
   struct node* head_ptr;
   struct node *new_node;
@@ -317,12 +487,14 @@ struct node *create_linked_list()
   temp_node = head_ptr;
   head_ptr->next = NULL;
   head_ptr->data = element[0];
+  // head_ptr->data2 = element2[0];
 
   for(i = 1; i < NO_ELEMENTS; i++)
   {
     new_node = malloc(sizeof(struct node));
     temp_node->next = new_node;
     new_node->data = element[i];
+    // new_node->data2 = element2[i];
     new_node->next = NULL;
     temp_node = new_node;
   }
