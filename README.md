@@ -1,7 +1,5 @@
 winter_art
 ==========
-
-This repo contains all personal timepass coding and does not belong to any project. 
-These files have some of the efforts that I have put in to improve my coding skills 
+This repo contains Hast Table, Stack and Queues, Singly Linked List, Doubly Linked List and currently I am working to make these libraries object oriented and easy to use.
 
 random_things
