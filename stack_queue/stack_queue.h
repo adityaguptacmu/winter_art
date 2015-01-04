@@ -21,6 +21,7 @@ void print_list(char *to_print, struct DLLHead **stack_head);
 void push(struct DLLHead **stack_head, int data);
 int mid_element(struct DLLHead *stack_head);
 int pop(struct DLLHead **stack_head);
+int delete_middle(struct DLLHead **stack_head);
 
 
 

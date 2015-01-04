@@ -15,6 +15,58 @@ struct DLLHead *create_new_stack(void)
   return new_stack;
 }
 
+
+int delete_middle(struct DLLHead **stack_head)
+{
+  struct DLLHead *stack = *stack_head;
+  struct DLLNode *temp = NULL;
+  int data = 0;
+
+  assert(stack != NULL);
+
+  if(stack->count == 0) return -1;
+
+  temp = stack->mid;
+
+
+  if(temp->prev != NULL)
+  {
+    temp->prev->next = temp->next;
+  }
+
+  if(temp->next != NULL)
+  {
+    temp->next->prev = temp->prev;
+  }
+
+  stack->count -= 1;
+
+  if(stack->count != 0)
+  {
+    if((stack->count%2 != 0))
+    {
+      stack->mid = stack->mid->next;
+    }
+    else
+    {
+      stack->mid = stack->mid->prev;
+    }
+  }
+  else
+  {
+    stack->mid = NULL;
+    stack->head = NULL;
+    stack->tail = NULL;
+  }
+
+  data = temp->data;
+  free(temp);
+
+  assert(stack->count >= 0);
+
+  return data;
+}
+
 int pop(struct DLLHead **stack_head)
 {
   struct DLLHead *stack = *stack_head;
