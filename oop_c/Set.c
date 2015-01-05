@@ -84,9 +84,16 @@ void * drop(void * _set, const void * _element)
  * @param  b [description]
  * @return   [description]
  */
-int differ(const void * a, const void * b)
+// int differ(const void * a, const void * b)
+// {
+//   return a != b;
+// }
+
+int differ (const void * self, const void * b)
 {
-  return a != b;
+  const struct Class * const * cp = self;
+  assert(self && * cp && (* cp) -> differ);
+  return (* cp) -> differ(self, b);
 }
 
 /**
@@ -103,7 +110,12 @@ unsigned count(const void * _set)
 
 
 
-
+size_t sizeOf(const void * self)
+{
+  const struct Class * const * cp = self;
+  assert(self && * cp);
+  return (* cp) -> size;
+}
 
 
 
