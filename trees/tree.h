@@ -39,5 +39,6 @@ void doubleTree(struct node* node);
 int sameTree(struct node* a, struct node* b);
 int countTrees(int numKeys);
 int isBST(struct node* node);
+int diagonal_sum(struct node* node);
 
 #endif

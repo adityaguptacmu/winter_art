@@ -5,6 +5,10 @@
 
 #define MAX(a,b) a>b ? a:b
 
+
+void diagonal_sum_main(struct node* node, int left, int *array);
+
+
 static inline struct node* NewNode(int data)
 {
   struct node* node = malloc(sizeof(struct node));
@@ -36,7 +40,6 @@ struct node* insert(struct node* node, int data)
     {
       node->right = insert(node->right, data);
     }
-
     return node;
   }
 }
@@ -190,8 +193,8 @@ void printTree(struct node* node)
   }
   else
   {
-    printTree(node->left);
     printf("[%d]\n",node->data);
+    printTree(node->left);
     printTree(node->right);
   }
 }
@@ -208,8 +211,8 @@ void printPostorder(struct node* node)
   }
   else
   {
-    printTree(node->left);
-    printTree(node->right);
+    printPostorder(node->left);
+    printPostorder(node->right);
     printf("[%d]\n",node->data);
   }
 }
@@ -418,6 +421,40 @@ int isBST(struct node* node)
   }
 }
 
+
+int diagonal_sum(struct node* node)
+{
+  if(node == NULL) return 0;
+  int i = 0;
+  int left = 0;
+  int right = 0;
+  int array[20];
+  for(i = 0; i< 20; i++)
+  {
+    array[i] = 0;
+  }
+
+  diagonal_sum_main(node, left, array);
+
+  for(i = 0; i< 20; i++)
+  {
+    printf("(%d)[%d]\n",i, array[i]);
+  }
+
+  return 0;
+}
+
+
+
+void diagonal_sum_main(struct node* node, int left, int *array)
+{
+  if(node == NULL) return;
+  int left_b = left + 1;
+  diagonal_sum_main(node->left, left_b, array);
+  diagonal_sum_main(node->right, left, array);
+  printf("left:[%d], data:[%d]\n", left, node->data);
+  array[left] += node->data;
+}
 
 
 
