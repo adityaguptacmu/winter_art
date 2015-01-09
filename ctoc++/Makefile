@@ -5,7 +5,7 @@
 CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=
-SOURCES=main.cpp extra.cpp
+SOURCES=main.cpp extra.cpp stack.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=main
 

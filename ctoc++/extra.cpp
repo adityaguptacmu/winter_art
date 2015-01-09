@@ -18,8 +18,9 @@ String operator+(const String& a, const String& b)
   }
   else
   {
-    cout << "MAx Length exceeded in strcat" << endl;
+    cout << "Max Length exceeded in strcat" << endl;
   }
+
   return temp;
 }
 
