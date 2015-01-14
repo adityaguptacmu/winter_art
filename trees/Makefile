@@ -2,19 +2,21 @@
 # Makefile for Winter_art
 #
 
-CC = gcc
-CFLAGS = -g -Wall
-LDFLAGS = -lpthread
+CC=gcc
+CFLAGS=-c -Wall
+LDFLAGS=
+SOURCES=main.c tree.c
+OBJECTS=$(SOURCES:.c=.o)
+EXECUTABLE=main
 
-all: tree_test
+all: $(SOURCES) $(EXECUTABLE)
 
-tree_test: tree_test.o tree.o
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
-tree_test.o: tree_test.c tree.h
-	$(CC) $(CFLAGS) -c tree_test.c
-
-tree.o: tree.c tree.h
-	$(CC) $(CFLAGS) -c tree.c
+.c.o:
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f *~ *.o tree_test core *.tar *.zip *.gzip *.bzip *.gz
+	rm -f *~ *.o main
+

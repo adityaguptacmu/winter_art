@@ -11,7 +11,7 @@ void diagonal_sum_main(struct node* node, int left, int *array);
 
 static inline struct node* NewNode(int data)
 {
-  struct node* node = malloc(sizeof(struct node));
+  struct node* node = (struct node*)malloc(sizeof(struct node));
   node->data = data;
   node->left = NULL;
   node->right = NULL;
@@ -193,7 +193,7 @@ void printTree(struct node* node)
   }
   else
   {
-    printf("[%d]\n",node->data);
+    printf("[%d]",node->data);
     printTree(node->left);
     printTree(node->right);
   }
@@ -213,7 +213,7 @@ void printPostorder(struct node* node)
   {
     printPostorder(node->left);
     printPostorder(node->right);
-    printf("[%d]\n",node->data);
+    printf("[%d]",node->data);
   }
 }
 
@@ -427,7 +427,7 @@ int diagonal_sum(struct node* node)
   if(node == NULL) return 0;
   int i = 0;
   int left = 0;
-  int right = 0;
+  // int right = 0;
   int array[20];
   for(i = 0; i< 20; i++)
   {

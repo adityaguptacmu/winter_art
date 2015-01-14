@@ -59,14 +59,14 @@ int main(int argc, char const *argv[])
   printf("--------\n");
   // printTree(root);
 
-  diagonal_sum(root);
+  // diagonal_sum(root);
   // printTree(root1);
   printPostorder(root);
   // print_tree(root);
   // printPaths(root);
   // mirror(root);
   // doubleTree(root);
-  printf("--------\n");
+  printf("\n--------\n");
   // printPaths(root);
   // printTree(root);
   // printPostorder(root);
