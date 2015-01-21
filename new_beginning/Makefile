@@ -5,18 +5,18 @@
 CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=
-SOURCES=main.cpp extra.cpp stack.cpp tree.cpp
+SOURCES=interval_tree.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=main
 
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-  $(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
 .cpp.o:
-  $(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-  rm -f *~ *.o main
+	rm -f *~ *.o main
 

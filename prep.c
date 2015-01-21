@@ -35,6 +35,9 @@ void palindrome_linked_list();
 bool isPalindrome(char *input);
 bool IsEven(unsigned int n);
 bool IsOdd(unsigned int n);
+int KMP_test(void);
+bool isRepeat(char* str);
+void computeLPSArray(char* str, int M, int* lps);
 
 struct linked_list *head_ptr = NULL;
 
@@ -74,8 +77,9 @@ int main(int argc, char const *argv[])
   // palindrome_linked_list();
   // printf("free_linked_list\n");
   // free_linked_list();
-  retval_bool = IsOdd(5);
-  printf("retval_bool - [%d]\n", retval_bool);
+  // retval_bool = IsOdd(5);
+  // printf("retval_bool - [%d]\n", retval_bool);
+  KMP_test();
   // hashtable = ht_create(10);
   // if(hashtable == NULL)
   // {
@@ -729,4 +733,86 @@ int check_unique_atring(char* given)
   free(map);
   printf("Unique!\n");
   return 1;
+}
+
+int KMP_test(void)
+{
+  char txt[][100] = {"ABCAABCA", "AAAAB"};
+  int n = sizeof(txt)/sizeof(txt[0]);
+
+  for (int i=0; i<n; i++)
+  {
+    if(isRepeat(txt[i]) == 1)
+    {
+      printf("TRUE\n");
+    }
+    else
+    {
+      printf("FALSE\n");
+    }
+  }
+
+  return 0;
+}
+
+
+bool isRepeat(char *str)
+{
+    // Find length of string and create an array to
+    // store lps values used in KMP
+    int n = strlen(str);
+    int lps[n];
+
+    // Preprocess the pattern (calculate lps[] array)
+    computeLPSArray(str, n, lps);
+
+    // Find length of longest suffix which is also
+    // prefix of str.
+    int len = lps[n-1];
+    printf("len:[%d]\n",len);
+    printf("retval:[%d]\n",(len > 0));
+    printf("retval:[%d]\n",(n%(n-len)));
+    printf("retval:[%d]\n",(n%(n-len) == 0));
+    // If there exist a suffix which is also prefix AND
+    // Length of the remaining substring divides total
+    // length, then str[0..n-len-1] is the substring that
+    // repeats n/(n-len) times (Readers can print substring
+    // and value of n/(n-len) for more clarity.
+    return (len > 0 && n%(n-len) == 0) ? 1:0;
+}
+
+
+void computeLPSArray(char* str, int M, int* lps)
+{
+  int len = 0; //lenght of the previous longest prefix suffix
+  int i;
+
+  lps[0] = 0; //lps[0] is always 0
+  i = 1;
+
+  // the loop calculates lps[i] for i = 1 to M-1
+  while (i < M)
+  {
+    if (str[i] == str[len])
+    {
+      len++;
+      lps[i] = len;
+      i++;
+    }
+    else // (pat[i] != pat[len])
+    {
+      if (len != 0)
+      {
+        // This is tricky. Consider the example AAACAAAA and i = 7.
+        len = lps[len-1];
+
+        // Also, note that we do not increment i here
+      }
+      else // if (len == 0)
+      {
+        lps[i] = 0;
+        i++;
+      }
+    }
+  }
 }
