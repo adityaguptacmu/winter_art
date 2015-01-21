@@ -2,15 +2,15 @@
 
 using namespace std;
 
-#define SIZE 8
+#define SIZE 5
 #define initial_x 0
 #define initial_y 0
 #define initial_turn 1
 #define NOT_VISITED -1
 
 void knight_path(void);
-int calculate_possible_path(int pos_x, int pos_y, int turn, int board[SIZE][SIZE], int x_move[SIZE], int y_move[SIZE], int *count);
-int is_safe(int pos_x, int pos_y, int index, int x_move[SIZE], int y_move[SIZE], int board[SIZE][SIZE]);
+int calculate_possible_path(int pos_x, int pos_y, int turn, int board[SIZE][SIZE], int x_move[SIZE], int y_move[SIZE]);
+int is_safe(int pos_x, int pos_y, int board[SIZE][SIZE]);
 void print_sol(int board[SIZE][SIZE]);
 
 int main(int argc, char const *argv[])
@@ -26,10 +26,17 @@ int main(int argc, char const *argv[])
 void knight_path(void)
 {
   int board[SIZE][SIZE];
-  int x_move[8] = {-2,-2,-1, 1, 2, 2,-1, 1};
-  int y_move[8] = { 1,-1, 2, 2, 1,-1,-2,-2};
+  // int x_move[8] = {-2,-2,-1, 1, 2, 2,-1, 1};
+  // int y_move[8] = { 1,-1, 2, 2, 1,-1,-2,-2};
+
+  // int x_move[8] = {1, 2,-2,-2,-1, 2,-1, 1};
+  // int y_move[8] = {2, 1, 1,-1, 2,-1,-2,-2};
+
+  int x_move[8] = {  2, 1, -1, -2, -2, -1,  1,  2 };
+  int y_move[8] = {  1, 2,  2,  1, -1, -2, -2, -1 };
+
   int retval = 0;
-  int count = 0;
+
   for(int i = 0; i < SIZE; i++)
   {
     for(int j = 0; j < SIZE; j++)
@@ -38,15 +45,13 @@ void knight_path(void)
     }
   }
 
-  board[0][0] = initial_x;
+  board[0][0] = initial_y;
 
-  retval = calculate_possible_path(initial_x, initial_y, initial_turn, board, x_move, y_move, &count);
+  retval = calculate_possible_path(initial_x, initial_y, initial_turn, board, x_move, y_move);
 
-  print_sol(board);
-  cout << count << endl;
   if(retval)
   {
-    // print_sol(board);
+    print_sol(board);
     return;
   }
 
@@ -55,25 +60,26 @@ void knight_path(void)
 }
 
 
-int calculate_possible_path(int pos_x, int pos_y, int turn, int board[SIZE][SIZE], int x_move[SIZE], int y_move[SIZE], int *count)
+int calculate_possible_path(int pos_x, int pos_y, int turn, int board[SIZE][SIZE], int x_move[SIZE], int y_move[SIZE])
 {
-  *count += 1;
-  if(turn == (SIZE*SIZE - 1))
+  int current_x = 0;
+  int current_y = 0;
+
+  if(turn == SIZE*SIZE)
   {
     return 1;
   }
 
-
   for(int i = 0; i < SIZE; i++)
   {
-    int current_x = pos_x + x_move[i];
-    int current_y = pos_y + y_move[i];
+    current_x = pos_x + x_move[i];
+    current_y = pos_y + y_move[i];
 
-    if(is_safe(current_x, current_y, i, x_move, y_move, board))
+    if(is_safe(current_x, current_y, board))
     {
 
       board[current_x][current_y] = turn;
-      if(calculate_possible_path(current_x, current_y, turn+1, board, x_move, y_move, count))
+      if(calculate_possible_path(current_x, current_y, turn+1, board, x_move, y_move) == 1)
       {
         return 1;
       }
@@ -83,12 +89,13 @@ int calculate_possible_path(int pos_x, int pos_y, int turn, int board[SIZE][SIZE
       }
     }
   }
-
   return 0;
 }
 
-int is_safe(int pos_x, int pos_y, int index, int x_move[SIZE], int y_move[SIZE], int board[SIZE][SIZE])
+int is_safe(int pos_x, int pos_y, int board[SIZE][SIZE])
 {
+
+  // x >= 0 && x < N && y >= 0 && y < N && sol[x][y] == -1
 
   if((pos_x < SIZE) && (pos_y < SIZE) && (pos_y >= 0) && (pos_x >= 0) && (board[pos_x][pos_y] == -1))
   {
