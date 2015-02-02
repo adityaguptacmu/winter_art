@@ -3,10 +3,13 @@
 #include <string.h>
 #include "tree.h"
 
+
+
 #define MAX(a,b) a>b ? a:b
 
 
 void diagonal_sum_main(struct node* node, int left, int *array);
+void level_order_main(struct node* node, struct DLLHead_q **head_q);
 
 
 static inline struct node* NewNode(int data)
@@ -214,6 +217,42 @@ void printPostorder(struct node* node)
     printPostorder(node->left);
     printPostorder(node->right);
     printf("[%d]",node->data);
+  }
+}
+
+/**
+ * [printPostorder description]
+ * @param node [description]
+ */
+void printInOrder(struct node* node)
+{
+  if(node == NULL)
+  {
+    return;
+  }
+  else
+  {
+    printInOrder(node->left);
+    printf("[%d]",node->data);
+    printInOrder(node->right);
+  }
+}
+
+/**
+ * [printPostorder description]
+ * @param node [description]
+ */
+void printPreOrder(struct node* node)
+{
+  if(node == NULL)
+  {
+    return;
+  }
+  else
+  {
+    printf("[%d]",node->data);
+    printPreOrder(node->left);
+    printPreOrder(node->right);
   }
 }
 
@@ -456,6 +495,43 @@ void diagonal_sum_main(struct node* node, int left, int *array)
   array[left] += node->data;
 }
 
+
+void level_order(struct node* node)
+{
+  // printf("level_order\n");
+  struct DLLHead_q *head_q = NULL;
+  head_q = create_new_queue();
+  level_order_main(node, &head_q);
+}
+
+void level_order_main(struct node* node, struct DLLHead_q **head_q)
+{
+  // printf("\nlevel_order_main\n");
+  if(node == NULL)
+  {
+    // printf("return\n");
+    return;
+  }
+  struct node* next_node = NULL;
+  printf("[%d]", node->data);
+
+  if(node->left)
+  {
+    // printf("[left %p]", node->left);
+    q_push(head_q, (data_t)node->left);
+  }
+  if(node->right)
+  {
+    // printf("[right %p]", node->right);
+    q_push(head_q, (data_t)node->right);
+  }
+
+  // print_list_q("level_order_main",head_q);
+
+  next_node = (struct node*)q_pop(head_q);
+
+  level_order_main(next_node, head_q);
+}
 
 
 

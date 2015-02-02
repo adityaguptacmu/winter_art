@@ -15,16 +15,97 @@ struct DLLHead *create_new_stack(void)
   return new_stack;
 }
 
+struct DLLHead_q *create_new_queue(void)
+{
+  struct DLLHead_q *new_queue = NULL;
+  new_queue = (struct DLLHead_q *)calloc(1,sizeof(struct DLLHead_q));
+  assert(new_queue != NULL);
+  new_queue->head = NULL;
+  new_queue->tail = NULL;
+  new_queue->count = 0;
+  return new_queue;
+}
 
-int delete_middle(struct DLLHead **stack_head)
+void q_push(struct DLLHead_q **queue_head, data_t data)
+{
+  // check for argument
+  assert(queue_head != NULL);
+  struct DLLHead_q *queue = *queue_head;
+  // check for argument
+  assert(queue != NULL);
+  struct DLLNode *temp = NULL;
+
+  // create new node
+  struct DLLNode *new_node = NULL;
+  new_node = (struct DLLNode *)calloc(1,sizeof(struct DLLNode));
+  assert(new_node != NULL);
+
+  new_node->next = NULL;
+  new_node->data = data;
+
+  // add it to the end
+  if(queue->count == 0)
+  {
+    new_node->prev = NULL;
+    queue->tail = new_node;
+    queue->head = new_node;
+  }
+  else
+  {
+    temp = queue->tail;
+    temp->next = new_node;
+    new_node->prev = temp;
+    queue->tail = new_node;
+  }
+
+  // update the queue count
+  queue->count += 1;
+}
+
+data_t q_pop(struct DLLHead_q **queue_head)
+{
+  // check for argument
+  assert(queue_head != NULL);
+  struct DLLHead_q *queue = *queue_head;
+  // check for argument
+  assert(queue != NULL);
+  struct DLLNode *temp = NULL;
+
+  data_t data = 0;
+
+  if(queue->count == 0) {return (data_t)0;}
+
+  if(queue->count == 1)
+  {
+    temp = queue->head;
+    queue->tail = NULL;
+    queue->head = NULL;
+    data = temp->data;
+  }
+  else
+  {
+    temp = queue->head;
+    queue->head = temp->next;
+    temp->next->prev = NULL;
+    data = temp->data;
+  }
+
+  // update the queue count
+  free(temp);
+  queue->count -= 1;
+  return data;
+}
+
+
+data_t delete_middle(struct DLLHead **stack_head)
 {
   struct DLLHead *stack = *stack_head;
   struct DLLNode *temp = NULL;
-  int data = 0;
+  data_t data = 0;
 
   assert(stack != NULL);
 
-  if(stack->count == 0) return -1;
+  if(stack->count == 0) return (data_t)0;
 
   temp = stack->mid;
 
@@ -67,14 +148,14 @@ int delete_middle(struct DLLHead **stack_head)
   return data;
 }
 
-int pop(struct DLLHead **stack_head)
+data_t pop(struct DLLHead **stack_head)
 {
   struct DLLHead *stack = *stack_head;
   struct DLLNode *temp = NULL;
-  int data = 0;
+  data_t data = 0;
   assert(stack_head != NULL);
 
-  if(stack->head == NULL) return -1;
+  if(stack->head == NULL) return (data_t)0;
 
   temp = stack->head;
   stack->head = temp->next;
@@ -100,7 +181,7 @@ int pop(struct DLLHead **stack_head)
   return data;
 }
 
-void push(struct DLLHead **stack_head, int data)
+void push(struct DLLHead **stack_head, data_t data)
 {
   struct DLLHead *stack = *stack_head;
 
@@ -139,7 +220,7 @@ void push(struct DLLHead **stack_head, int data)
   }
 }
 
-int mid_element(struct DLLHead *stack_head)
+data_t mid_element(struct DLLHead *stack_head)
 {
   assert(stack_head != NULL);
 
@@ -147,14 +228,14 @@ int mid_element(struct DLLHead *stack_head)
   if(stack_head->count > 0)
   {
     temp_node = stack_head->mid;
-    return (int)temp_node->data;
+    return (data_t)temp_node->data;
   }
   else
   {
     printf("Stack is empty\n");
   }
 
-  return -1;
+  return (data_t)0;
 }
 
 void print_list(char *to_print, struct DLLHead **stack_head)
@@ -165,8 +246,23 @@ void print_list(char *to_print, struct DLLHead **stack_head)
   printf("%s->",to_print);
   while(temp_node!= NULL)
   {
-    printf("[%d]", temp_node->data);
+    printf("[%p]", (data_t)temp_node->data);
     temp_node = temp_node->next;
   }
   printf("\n");
 }
+
+void print_list_q(char *to_print, struct DLLHead_q **queue_head)
+{
+  struct DLLHead_q *head_node = *queue_head;
+  struct DLLNode *temp_node = head_node->head;
+
+  printf("%s->",to_print);
+  while(temp_node!= NULL)
+  {
+    printf("[%p]", (data_t)temp_node->data);
+    temp_node = temp_node->next;
+  }
+  printf("\n");
+}
+

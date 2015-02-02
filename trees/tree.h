@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "../stack_queue/stack_queue.h"
 
 typedef struct tree_elem {
     int elements;
@@ -26,6 +27,8 @@ int minValue(struct node* node);
 int maxValue(struct node* node);
 void printTree(struct node* node);
 void printPostorder(struct node* node);
+void printInOrder(struct node* node);
+void printPreOrder(struct node* node);
 int hasPathSum(struct node* node, int sum);
 
 // copid from solution, did not solve
@@ -40,5 +43,6 @@ int sameTree(struct node* a, struct node* b);
 int countTrees(int numKeys);
 int isBST(struct node* node);
 int diagonal_sum(struct node* node);
+void level_order(struct node* node);
 
 #endif

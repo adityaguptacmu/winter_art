@@ -2,24 +2,21 @@
 # Makefile for Winter_art
 #
 
-CC=gcc
+CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=
-OTHERDIR=../stack_queue
-
-SOURCES=main.c tree.c $(OTHERDIR)/stack_queue.c
-
-OBJECTS=$(SOURCES:.c=.o)
-EXECUTABLE=main
+SOURCES=linkedlist.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=linkedlist
 
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
-.c.o:
+.cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f *~ *.o main
+	rm -f *~ *.o kmp
 
