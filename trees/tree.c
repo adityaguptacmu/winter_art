@@ -27,24 +27,66 @@ static inline struct node* NewNode(int data)
  * @param  data [description]
  * @return      [description]
  */
+// struct node* insert(struct node* node, int data)
+// {
+//   if(node == NULL)
+//   {
+//     return (NewNode(data));
+//   }
+//   else
+//   {
+//     if(data <= node->data)
+//     {
+//       node->left = insert(node->left, data);
+//     }
+//     else
+//     {
+//       node->right = insert(node->right, data);
+//     }
+//     return node;
+//   }
+// }
+
 struct node* insert(struct node* node, int data)
 {
+  // printf("Adding [%d]\n", data);
+
+  struct node* parent = NULL;
+  struct node* current = NULL;
   if(node == NULL)
   {
-    return (NewNode(data));
+    // printf("first node\n");
+    current = NewNode(data);
+    current->parent = NULL;
+    return current;
   }
   else
   {
-    if(data <= node->data)
+    parent = NULL;
+    current = node;
+
+    while(current!=NULL)
     {
-      node->left = insert(node->left, data);
+      current->parent = parent;
+      parent = current;
+      current = (data>current->data)?current->right:current->left;
+    }
+
+    if(data > parent->data)
+    {
+      // printf("Adding to right of [%d]\n", parent->data);
+      parent->right = NewNode(data);
+      parent->right->parent = parent;
     }
     else
     {
-      node->right = insert(node->right, data);
+      // printf("Adding to left of [%d]\n", parent->data);
+      parent->left = NewNode(data);
+      parent->left->parent = parent;
     }
-    return node;
   }
+
+  return node;
 }
 
 /**
@@ -506,10 +548,8 @@ void level_order(struct node* node)
 
 void level_order_main(struct node* node, struct DLLHead_q **head_q)
 {
-  // printf("\nlevel_order_main\n");
   if(node == NULL)
   {
-    // printf("return\n");
     return;
   }
   struct node* next_node = NULL;
@@ -517,16 +557,12 @@ void level_order_main(struct node* node, struct DLLHead_q **head_q)
 
   if(node->left)
   {
-    // printf("[left %p]", node->left);
     q_push(head_q, (data_t)node->left);
   }
   if(node->right)
   {
-    // printf("[right %p]", node->right);
     q_push(head_q, (data_t)node->right);
   }
-
-  // print_list_q("level_order_main",head_q);
 
   next_node = (struct node*)q_pop(head_q);
 
@@ -534,6 +570,67 @@ void level_order_main(struct node* node, struct DLLHead_q **head_q)
 }
 
 
+void node_addr(struct node* node, int data, struct node** ret_node)
+{
+  if(node == NULL)
+  {
+    return;
+  }
+
+  if(node->data == data)
+  {
+    *ret_node = node;
+  }
+  else
+  {
+    node_addr(node->left, data, ret_node);
+    node_addr(node->right, data, ret_node);
+  }
+}
+
+// under construction
+int delete_node(struct node* node)
+{
+  assert(node!=NULL);
+  struct node *temp = NULL;
+  struct node *current = node;
+  struct node *before = NULL;
+  int data = 0;
+
+  if(node->left == NULL)
+  {
+    temp = node->right;
+  }
+  else if(node->right == NULL)
+  {
+    temp = node->left;
+  }
+  else
+  {
+    while(current->left != NULL)
+    {
+      before = current;
+      current = current->left;
+    }
+
+
+
+
+  }
+
+  if(node->parent->left == node)
+  {
+    node->parent->left = temp;
+  }
+  else
+  {
+    node->parent->right = temp;
+  }
+  temp->parent = node->parent;
+  data = node->data;
+  free(node);
+  return data;
+}
 
 
 

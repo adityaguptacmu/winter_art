@@ -7,6 +7,7 @@
 int main(int argc, char const *argv[])
 {
   struct node* root = NULL;
+  struct node* node_p = NULL;
 
   // root = insert(root, 5);
   // root = insert(root, 3);
@@ -67,7 +68,9 @@ int main(int argc, char const *argv[])
   printPreOrder(root);
   printf("\n-LEVELORDER-\n");
   level_order(root);
-
+  printf("\n\n");
+  node_addr(root, 6, &node_p);
+  printf("[node_p->data = %d]\n",node_p->data);
   // print_tree(root);
   // printPaths(root);
   // mirror(root);

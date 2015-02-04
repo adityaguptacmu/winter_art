@@ -77,9 +77,9 @@ int main(int argc, char const *argv[])
   // head = ShuffleMerge(head_back, head_front);
   // head = SortedMerge(head_back, head_front);
   // head = SortedIntersect(head_front, head_back);
-  // MergeSort(&head);
+  MergeSort(&head);
   // RecursiveReverse(&head);
-  gfg_q8(&head, 2, 3);
+  // gfg_q8(&head, 2, 3);
   // gfg_q1(&head);
   // gfg_q4(&head);
   print_linked_list("main", &head);

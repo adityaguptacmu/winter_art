@@ -7,6 +7,8 @@
 
 using namespace std;
 
+void allocate_buffer(char* name, int size);
+
 int main(int argc, char const *argv[])
 {
   cout << "Hello World!" << endl;
@@ -52,7 +54,8 @@ int main(int argc, char const *argv[])
 
 
 
-
+  char *hello = NULL;
+  allocate_buffer(hello, 10);
 
 
 
@@ -87,6 +90,10 @@ void reverse(char* str, int n)
 }
 
 
+void allocate_buffer(char* name, int size)
+{
+  name = new char[size];
+}
 
 
 

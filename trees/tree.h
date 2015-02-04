@@ -4,7 +4,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 #include "../stack_queue/stack_queue.h"
+
 
 typedef struct tree_elem {
     int elements;
@@ -13,9 +15,12 @@ typedef struct tree_elem {
 
 struct node {
     int data;
+    struct node* parent;
     struct node* left;
     struct node* right;
 };
+
+
 
 int lookup(struct node* node, int target);
 void clean_up(struct node* node);
@@ -44,5 +49,8 @@ int countTrees(int numKeys);
 int isBST(struct node* node);
 int diagonal_sum(struct node* node);
 void level_order(struct node* node);
+
+void node_addr(struct node* node, int data, struct node** ret_node);
+int delete_node(struct node* node);
 
 #endif
