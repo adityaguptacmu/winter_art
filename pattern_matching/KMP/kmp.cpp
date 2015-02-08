@@ -10,7 +10,7 @@ void printArray(int *lps, int len);
 int main(int argc, char const *argv[])
 {
   string txt = "ABABDABACDABABCABAB";
-  string pat = "AAAAAA";
+  string pat = "ABAB";
   KMPSearch((char *)pat.c_str(), (char*)txt.c_str());
   return 0;
   return 0;
@@ -21,11 +21,47 @@ void KMPSearch(char* pat, char* txt)
   cout << pat << endl << txt << endl;
   int pat_len = strlen(pat);
   int txt_len = strlen(txt);
+  int is_repeat = 0;
 
   int *lps = (int*)calloc(txt_len, sizeof(int));
   computeLPSArray(pat, pat_len, lps);
 
   printArray(lps, pat_len);
+
+  int end_value = lps[pat_len - 1];
+
+
+  is_repeat = (end_value > 0 && pat_len%(pat_len-end_value) == 0)? true: false;
+
+  cout << "is_repeat = " << is_repeat << endl;
+
+  int i = 0;  // index for txt[]
+  int j = 0;
+  while (i < txt_len)
+  {
+    if (pat[j] == txt[i])
+    {
+      j++;
+      i++;
+    }
+
+    if (j == pat_len)
+    {
+      printf("Found pattern at index %d \n", i-j);
+      j = lps[j-1];
+    }
+
+    // mismatch after j matches
+    else if (i < txt_len && pat[j] != txt[i])
+    {
+      // Do not match lps[0..lps[j-1]] characters,
+      // they will match anyway
+      if (j != 0)
+       j = lps[j-1];
+      else
+       i = i+1;
+    }
+  }
 
 }
 
