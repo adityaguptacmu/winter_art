@@ -44,17 +44,29 @@ struct linked_list *head_ptr = NULL;
 int main(int argc, char const *argv[])
 {
   /* code */
-  char* given1 = "aaaabbbbcaaahhgh";
-  char* given2 = "      ABC";
+
+  int b = -5;
+  int a;
+
+  while((a = b++))
+  {
+    printf("IN a:[%d], b:[%d]\n", a, b);
+  }
+  printf("OUT a:[%d], b:[%d]\n", a, b);
+
+
+
+  // char* given1 = "aaaabbbbcaaahhgh";
+  // char* given2 = "      ABC";
   // h_t *hashtable = NULL;
   // struct linked_list *return_link;
-  bool retval_bool;
+  // bool retval_bool;
 
-  char *input1 = malloc(strlen(given1)+1*sizeof(char));
-  strcpy(input1,given1);
+  // char *input1 = malloc(strlen(given1)+1*sizeof(char));
+  // strcpy(input1,given1);
 
-  char *input2 = malloc(strlen(given2)+1*sizeof(char));
-  strcpy(input2,given2);
+  // char *input2 = malloc(strlen(given2)+1*sizeof(char));
+  // strcpy(input2,given2);
 
   // check_unique_atring("hello world");
   // reverse_string(input);
@@ -79,7 +91,7 @@ int main(int argc, char const *argv[])
   // free_linked_list();
   // retval_bool = IsOdd(5);
   // printf("retval_bool - [%d]\n", retval_bool);
-  KMP_test();
+  // KMP_test();
   // hashtable = ht_create(10);
   // if(hashtable == NULL)
   // {
@@ -99,8 +111,8 @@ int main(int argc, char const *argv[])
 
   // print_hash_table(hashtable);
   // free_hash_table(hashtable);
-  free(input1);
-  free(input2);
+  // free(input1);
+  // free(input2);
   return 0;
 }
 
