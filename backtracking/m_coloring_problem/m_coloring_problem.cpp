@@ -51,6 +51,7 @@ void graph_coloring(int graph[V][V], int color)
 int graphColoringUtil(int graph[V][V], int color, int *color_array, int node)
 {
   std::cout << "ha ha ha" << endl;
+  return 0;
 }
 
 
