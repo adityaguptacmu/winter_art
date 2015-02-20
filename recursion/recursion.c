@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+const char hashTable[10][6] = {"", "", "2abc", "3def", "4ghi", "5jkl",
+                               "6mno", "7pqrs", "8tuv", "9wxyz"};
 
 int Cannonball(int height);
 int RaiseIntToPower(int n, int k);
@@ -11,6 +13,8 @@ int CountFib1(int n);
 int DigitSum(int n);
 int DigitalRoot(int n);
 int Combinations(int x, int y);
+void printWords(void);
+void printWordsUtil(int number[], int curr_digit, char output[], int n);
 
 /**
  * [main description]
@@ -32,10 +36,46 @@ int main(int argc, char const *argv[])
   char* given1 = "ABC";
   char *input1 = malloc(strlen(given1)+1*sizeof(char));
   strcpy(input1,given1);
+  printWords();
 
   // printf("Reverse(input1):[%d]\n",Reverse(input1));
   return 0;
 }
+
+
+void printWords(void)
+{
+  int number[] = {2, 2};
+  int n = sizeof(number)/sizeof(number[0]);
+  // printWords(number, n);
+  char result[n+1];
+  result[n] ='\0';
+  printWordsUtil(number, 0, result, n);
+}
+
+
+
+void printWordsUtil(int number[], int curr_digit, char output[], int n)
+{
+  // Base case, if current output word is prepared
+  int i;
+  if (curr_digit == n)
+  {
+    printf("%s\n", output);
+    return;
+  }
+
+  // Try all 4 possible characters for current digir in number[]
+  // and recur for remaining digits
+  for (i=0; i<strlen(hashTable[number[curr_digit]]); i++)
+  {
+    output[curr_digit] = hashTable[number[curr_digit]][i];
+    printWordsUtil(number, curr_digit+1, output, n);
+    if (number[curr_digit] == 0 || number[curr_digit] == 1)
+      return;
+  }
+}
+
 
 /**
  * [Cannonball description]
