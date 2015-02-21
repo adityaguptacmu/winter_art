@@ -2,7 +2,7 @@
 # Makefile for Winter_art
 #
 
-CC=g++
+CC=gcc
 CFLAGS=-c -Wall
 LDFLAGS=
 SOURCES=moderate.c
