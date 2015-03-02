@@ -10,7 +10,7 @@ void printArray(int *lps, int len);
 int main(int argc, char const *argv[])
 {
   string txt = "ABABDABACDABABCABAB";
-  string pat = "ABAB";
+  string pat = "ABCDABCE";
   KMPSearch((char *)pat.c_str(), (char*)txt.c_str());
   return 0;
   return 0;
@@ -111,14 +111,3 @@ void printArray(int *lps, int len)
   }
   cout << endl;
 }
-
-
-
-
-
-
-
-
-
-
-
