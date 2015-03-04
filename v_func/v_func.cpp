@@ -3,6 +3,9 @@
 #include <cassert>
 using namespace std;
 
+
+
+
 class Base1
 {
   public:
@@ -16,7 +19,7 @@ class Derived : public Base1
 {
   public:
 
-  virtual int virt1() { return 150; }
+  virtual int virt1() { return data1; }
 
   int derivedData;
 };
@@ -26,15 +29,18 @@ int Global1( Base1 * b1 )
   return b1->virt1();
 }
 
+
 int main()
 {
   Derived * d = new Derived;
 
-  printf( "%d %d\n", d->virt1(), Global1( d ));
+  printf("%d\n", sizeof(Derived));  // 16
+  printf("%d\n", sizeof(Base1));  // 16
+
+  printf( "%d %d\n", d->virt1(), Global1( d )); // 150 150
 }
 
-/*----------------------------------------------------------------------
-
+/*
 class Base2
 {
   public:
@@ -59,11 +65,13 @@ int Global2( Base2 * b2 )
   return b2->virt2();
 }
 
-main2()
+int main()
 {
   MultipleDerived * md = new MultipleDerived;
 
+  printf("%d\n", sizeof(Base2));  // 16
+  printf("%d\n", sizeof(MultipleDerived));  // 32
   printf( "%d %d %d %d\n",
-    md->virt1(), Global1( md ), md->virt2(), Global2( md ));
+    md->virt1(), Global1( md ), md->virt2(), Global2( md )); // 150 150 250 250
 }
 */

@@ -2,8 +2,8 @@
 # Makefile for Winter_art
 #
 
-CC=gcc
-CFLAGS=-c -Wall
+CC=g++
+CFLAGS=:
 LDFLAGS=
 OTHERDIR=
 

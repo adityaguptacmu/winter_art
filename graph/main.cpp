@@ -3,21 +3,25 @@
 #include <string>
 #include "graph.h"
 
+using namespace std;
 
 int main(int argc, char const *argv[])
 {
   std::cout << "graph testing code" << std::endl;
-  Graph g;
+  Graph g(5);
+  cout<< sizeof(g) << endl;
 
-  g.insert_vertex("A");
-  g.insert_vertex("B");
-  g.insert_vertex("C");
-  g.insert_vertex("D");
-  g.insert_vertex("E");
-  g.insert_vertex("F");
+  g.addEdge(1, 0);
+  g.addEdge(0, 2);
+  // g.addEdge(2, 0);
+  g.addEdge(0, 3);
+  g.addEdge(3, 4);
 
+  cout<< sizeof(g) << endl;
 
-  g.printGraph();
+  g.isCyclic()? cout << "Graph contains cycle\n":
+                     cout << "Graph doesn't contain cycle\n";
+
 
   return 0;
 }
