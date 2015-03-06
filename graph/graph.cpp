@@ -154,4 +154,80 @@ void Graph::print_rec_stack(bool rec_stack[])
 }
 
 
+void Graph::DFS(int v) // DFS utility
+{
+	bool *visited = new bool[V];
+	for(int i = 0; i < V; i++)
+	{
+		visited[i] = false;
+	}
+
+	DFSUtil(v, visited);
+}
+
+void Graph::DFSUtil(int v, bool visited[])
+{
+	visited[v] = true;
+	cout << v << " ";
+	list<int>:: iterator i;
+
+	for(i = adj[v].begin(); i != adj[v].end(); i++)
+	{
+		if(!visited[*i])
+		{
+			DFSUtil(*i, visited);
+		}
+	}
+}
+
+
+
+void Graph::BFS(int v) // DFS utility
+{
+	bool *visited = new bool[V];
+	list <int> queue;
+
+	for(int i = 0; i < V; i++)
+	{
+		visited[i] = false;
+	}
+
+	visited[v] = true;
+	queue.push_back(v);
+
+	list<int>:: iterator i;
+
+	while(!queue.empty())
+	{
+		print_queue(queue);
+		v = queue.front();
+		cout << v << " ";
+		queue.pop_front();
+
+		for(i = adj[v].begin(); i != adj[v].end(); i++)
+		{
+			if(!visited[*i])
+			{
+				visited[*i] = true;
+				queue.push_back(*i);
+			}
+		}
+
+	}
+}
+
+
+void Graph::print_queue(list<int> queue) // prints the rec_stack
+{
+	cout << endl;
+	list<int>::iterator i;
+	cout << "queue -> ";
+	for(i = queue.begin(); i != queue.end(); i++)
+	{
+		cout << *i << " ";
+	}
+
+	cout << endl;
+}
+
 

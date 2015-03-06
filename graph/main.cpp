@@ -30,6 +30,11 @@ int main(int argc, char const *argv[])
   g.isCyclic_directed()? cout << "Graph contains cycle\n":
                      cout << "Graph doesn't contain cycle\n";
 
+  g.DFS(2);
+
+  cout << endl;
+
+  g.BFS(2);
 
   return 0;
 }

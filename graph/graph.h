@@ -24,7 +24,9 @@ public:
   bool isCyclic();              // returns true if there is a cycle
   bool isCyclic_directed();              // returns true if there is a cycle
   void print_rec_stack(bool rec_stack[]); // prints the rec_stack
+  void print_queue(list<int> queue); // prints the rec_stack
   void DFS(int v); // DFS utility
+  void BFS(int v); // DFS utility
 };
 
 #endif
