@@ -61,19 +61,33 @@ bool Graph::isCyclic(void)
 
 bool Graph::isCyclicUtil(int v, bool visited[], int parent)
 {
+  cout << "ENTERING v = " << v << "\tparent = "<< parent << endl;
   visited[v] = true;
   list<int>::iterator i;
 
   for(i = adj[v].begin(); i != adj[v].end(); i++)
   {
+    cout << "ITERATOR i = " << *i << endl;
     if(!visited[*i])
     {
+      cout << "recursing" << endl;
       if(isCyclicUtil(*i, visited, v))
+      {
+
+        cout << "return TRUE 1\t";
+        cout << "v = " << v << "\tparent = "<< parent << endl;
         return true;
+      }
     }
     else if(*i != parent)
+    {
+      cout << "return TRUE 2\t";
+      cout << "v = " << v << "\tparent = "<< parent << endl;
       return true;
+    }
   }
+  cout << "returning FALSE\t";
+  cout << "v = " << v << "\tparent = "<< parent << endl;
   return false;
 }
 

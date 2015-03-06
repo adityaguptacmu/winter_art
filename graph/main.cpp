@@ -7,13 +7,13 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-  std::cout << "graph testing code" << std::endl;
+  std::cout << "undirected graph testing code" << std::endl;
   Graph g(5);
   cout<< sizeof(g) << endl;
 
   g.addEdge(1, 0);
   g.addEdge(0, 2);
-  // g.addEdge(2, 0);
+  g.addEdge(2, 0);
   g.addEdge(0, 3);
   g.addEdge(3, 4);
 
