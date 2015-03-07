@@ -231,3 +231,56 @@ void Graph::print_queue(list<int> queue) // prints the rec_stack
 }
 
 
+
+void Graph::print_all_path(int s, int d)
+{
+	bool *visited = new bool[V];
+	for(int i = 0; i < V; i++)
+	{
+		visited[i] = false;
+	}
+
+	list<int> path;
+
+	// path.push_back(s);
+	// visited[s] = true;
+
+	list<int>:: iterator i;
+
+	print_all_path_util(s,d,visited,path);
+
+}
+
+void Graph::print_all_path_util(int s, int d, bool visited[], list<int> path)
+{
+	// print_queue(path);
+
+	visited[s] = true;
+	path.push_back(s);
+
+	if(s == d)
+	{
+		cout << "found path : ";
+		print_queue(path);
+	}
+	else
+	{
+
+		list<int>:: iterator i;
+
+		for(i = adj[s].begin(); i != adj[s].end(); i++)
+		{
+			if(!visited[*i])
+			{
+				print_all_path_util(*i,d,visited,path);
+			}
+		}
+
+	}
+
+	path.remove(s);
+	visited[s] = false;
+
+}
+
+

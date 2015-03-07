@@ -5,6 +5,8 @@
 
 using namespace std;
 
+
+
 int main(int argc, char const *argv[])
 {
   std::cout << "undirected graph testing code" << std::endl;
@@ -17,13 +19,19 @@ int main(int argc, char const *argv[])
   // g.addEdge(0, 3);
   // g.addEdge(3, 4);
 
-  g.addEdge_directed(0, 1);
-  g.addEdge_directed(0, 2);
-  g.addEdge_directed(1, 2);
-  g.addEdge_directed(2, 0);
-  g.addEdge_directed(2, 3);
-  g.addEdge_directed(3, 3);
+  // g.addEdge_directed(0, 1);
+  // g.addEdge_directed(0, 2);
+  // g.addEdge_directed(1, 2);
+  // g.addEdge_directed(2, 0);
+  // g.addEdge_directed(2, 3);
+  // g.addEdge_directed(3, 3);
 
+  g.addEdge_directed(0, 2);
+  g.addEdge_directed(2, 0);
+  g.addEdge_directed(2, 1);
+  g.addEdge_directed(0, 1);
+  g.addEdge_directed(1, 3);
+  g.addEdge_directed(0, 3);
 
   cout<< sizeof(g) << endl;
 
@@ -35,6 +43,19 @@ int main(int argc, char const *argv[])
   cout << endl;
 
   g.BFS(2);
+  cout << endl;
+  cout << endl;
+
+
+  g.print_all_path(2,3);
+
+
+  int graph[VER][VER] = {{0, 16, 13,  0,  0,  0},
+                         {0,  0, 10, 12,  0,  0},
+                         {0,  4,  0,  0, 14,  0},
+                         {0,  0,  9,  0,  0, 20},
+                         {0,  0,  0,  7,  0,  4},
+                         {0,  0,  0,  0,  0,  0}};
 
   return 0;
 }
