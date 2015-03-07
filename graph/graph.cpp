@@ -8,9 +8,13 @@
 #include <limits.h>
 #include "graph.h"
 
+
 class Graph;
 
+static bool bfs_adj_array(int r_graph[VER][VER], int s, int d, int parent[]);
+
 using namespace std;
+
 
 Graph::Graph(int V)
 {
@@ -283,4 +287,87 @@ void Graph::print_all_path_util(int s, int d, bool visited[], list<int> path)
 
 }
 
+static void print_parent(int parent[], int size)
+{
+	cout << "parent -> ";
+	for(int i = 1; i < size; i++)
+	{
+		cout << parent[i] << " ";
+	}
+	cout << endl;
+}
+
+
+int fordFulkerson(int graph[VER][VER], int s, int t)
+{
+	cout << "\n";
+	int u, v;
+	int r_graph[VER][VER];
+
+	for(int i = 0; i < VER; i++)
+		for(int j = 0; j < VER; j++)
+			r_graph[i][j] = graph[i][j];
+
+	int parent[VER];
+	memset(parent, 0, VER);
+
+	int max_flow = 0;
+
+	while(bfs_adj_array(r_graph,s,t,parent))
+	{
+		print_parent(parent, VER);
+		int path_flow = INT_MAX;
+
+		for (v = t; v != s; v = parent[v])
+        {
+            u = parent[v];
+            path_flow = min(path_flow, r_graph[u][v]);
+        }
+        for (v=t; v != s; v=parent[v])
+        {
+            u = parent[v];
+            r_graph[u][v] -= path_flow;
+            r_graph[v][u] += path_flow;
+        }
+
+        max_flow += path_flow;
+		memset(parent, 0, VER);
+
+	}
+
+	return max_flow;
+}
+
+static bool bfs_adj_array(int r_graph[VER][VER], int s, int d, int parent[])
+{
+	bool *visited = new bool[VER];
+	list <int> queue;
+
+	for(int i = 0; i < VER; i++)
+		visited[i] = 0;
+
+	queue.push_back(s);
+	visited[s] = 1;
+
+	// start wokring on FIFO queue
+	while(!queue.empty())
+	{
+		// keep popping
+		int vertex = queue.front();
+		queue.pop_front();
+		for(int i = 0; i < VER; i++)
+		{
+			// if not visited and edge exist, add to the queue
+			if(!visited[i] && r_graph[vertex][i] > 0)
+			{
+				queue.push_back(i);
+				parent[i] = vertex;
+				visited[i] = true;
+			}
+		}
+	}
+
+	// did path exist?
+	return (visited[d] == true);
+}
 
