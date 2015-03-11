@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-const char hashTable[10][6] = {"", "", "2abc", "3def", "4ghi", "5jkl",
+const char hashTable[10][6] = {" ", " ", "2abc", "3def", "4ghi", "5jkl",
                                "6mno", "7pqrs", "8tuv", "9wxyz"};
 
 int Cannonball(int height);
@@ -45,7 +45,7 @@ int main(int argc, char const *argv[])
 
 void printWords(void)
 {
-  int number[] = {2, 2};
+  int number[] = {2, 0, 2, 2};
   int n = sizeof(number)/sizeof(number[0]);
   // printWords(number, n);
   char result[n+1];
@@ -57,22 +57,37 @@ void printWords(void)
 
 void printWordsUtil(int number[], int curr_digit, char output[], int n)
 {
+  // printf("recursive\n");
   // Base case, if current output word is prepared
   int i;
   if (curr_digit == n)
   {
-    printf("%s\n", output);
+    char* temp = output;
+    while(*temp != '\0')
+    {
+      if(*temp != ' ')
+      {
+        printf("%c", *temp);
+      }
+      temp++;
+    }
+    printf("\n");
+    // printf("%s\n", output);
     return;
   }
 
   // Try all 4 possible characters for current digir in number[]
   // and recur for remaining digits
+  // if(number[curr_digit] == 0 || number[curr_digit] == 1)
+  // {
+  //   printWordsUtil(number, curr_digit+1, output, n);
+  //   return;
+  // }
+
   for (i=0; i<strlen(hashTable[number[curr_digit]]); i++)
   {
     output[curr_digit] = hashTable[number[curr_digit]][i];
     printWordsUtil(number, curr_digit+1, output, n);
-    if (number[curr_digit] == 0 || number[curr_digit] == 1)
-      return;
   }
 }
 

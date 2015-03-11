@@ -7,10 +7,17 @@
 #include "Set.h"
 #include "Object.h"
 
+typedef struct __test
+{
+   char c;
+}test;
+
+
 int main(int argc, char const *argv[])
 {
+  test new_test;
   printf("Hello World!\n");
-
+  printf("%lu\n",sizeof(test));
   // printf("*Set:[%d]\n",*(const size_t*)Set);
   // printf("*Object:[%d]\n",*(const size_t*)Object);
   // printf("void* P_s = new(Set);\n");
@@ -43,7 +50,7 @@ int main(int argc, char const *argv[])
 
   void * a = new(String, "a"), * aa = clone(a);
   void * b = new(String, "b");
-  printf("sizeOf(a) == %u\n", sizeOf(a));
+  printf("sizeOf(a) == %u\n", sizeof(a));
   if (differ(a, b))
     puts("ok");
 

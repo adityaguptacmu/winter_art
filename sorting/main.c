@@ -7,6 +7,12 @@
 #define SIZE 20
 void print_array(int* array);
 
+typedef struct
+{
+  short d;
+   char c;
+}test;
+
 
 int main(int argc, char const *argv[])
 {
@@ -40,6 +46,9 @@ int main(int argc, char const *argv[])
   print_array(array);
   selection_sort_array(array, 0, SIZE);
   print_array(array);
+
+  test new_test;
+  printf("------------------%lu\n",sizeof(test));
 
   return 0;
 

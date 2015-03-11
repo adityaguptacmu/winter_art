@@ -27,67 +27,67 @@ static inline struct node* NewNode(int data)
  * @param  data [description]
  * @return      [description]
  */
-// struct node* insert(struct node* node, int data)
-// {
-//   if(node == NULL)
-//   {
-//     return (NewNode(data));
-//   }
-//   else
-//   {
-//     if(data <= node->data)
-//     {
-//       node->left = insert(node->left, data);
-//     }
-//     else
-//     {
-//       node->right = insert(node->right, data);
-//     }
-//     return node;
-//   }
-// }
-
 struct node* insert(struct node* node, int data)
 {
-  // printf("Adding [%d]\n", data);
-
-  struct node* parent = NULL;
-  struct node* current = NULL;
   if(node == NULL)
   {
-    // printf("first node\n");
-    current = NewNode(data);
-    current->parent = NULL;
-    return current;
+    return (NewNode(data));
   }
   else
   {
-    parent = NULL;
-    current = node;
-
-    while(current!=NULL)
+    if(data <= node->data)
     {
-      current->parent = parent;
-      parent = current;
-      current = (data>current->data)?current->right:current->left;
-    }
-
-    if(data > parent->data)
-    {
-      // printf("Adding to right of [%d]\n", parent->data);
-      parent->right = NewNode(data);
-      parent->right->parent = parent;
+      node->left = insert(node->left, data);
     }
     else
     {
-      // printf("Adding to left of [%d]\n", parent->data);
-      parent->left = NewNode(data);
-      parent->left->parent = parent;
+      node->right = insert(node->right, data);
     }
+    return node;
   }
-
-  return node;
 }
+
+// struct node* insert(struct node* node, int data)
+// {
+//   // printf("Adding [%d]\n", data);
+
+//   struct node* parent = NULL;
+//   struct node* current = NULL;
+//   if(node == NULL)
+//   {
+//     // printf("first node\n");
+//     current = NewNode(data);
+//     current->parent = NULL;
+//     return current;
+//   }
+//   else
+//   {
+//     parent = NULL;
+//     current = node;
+
+//     while(current!=NULL)
+//     {
+//       current->parent = parent;
+//       parent = current;
+//       current = (data>current->data)?current->right:current->left;
+//     }
+
+//     if(data > parent->data)
+//     {
+//       // printf("Adding to right of [%d]\n", parent->data);
+//       parent->right = NewNode(data);
+//       parent->right->parent = parent;
+//     }
+//     else
+//     {
+//       // printf("Adding to left of [%d]\n", parent->data);
+//       parent->left = NewNode(data);
+//       parent->left->parent = parent;
+//     }
+//   }
+
+//   return node;
+// }
 
 /**
  * [lookup description]
@@ -589,49 +589,54 @@ void node_addr(struct node* node, int data, struct node** ret_node)
 }
 
 // under construction
-int delete_node(struct node* node)
+// int delete_node(struct node* node)
+// {
+//   assert(node!=NULL);
+//   struct node *temp = NULL;
+//   struct node *current = node;
+//   struct node *before = NULL;
+//   int data = 0;
+
+//   if(node->left == NULL)
+//   {
+//     temp = node->right;
+//   }
+//   else if(node->right == NULL)
+//   {
+//     temp = node->left;
+//   }
+//   else
+//   {
+//     while(current->left != NULL)
+//     {
+//       before = current;
+//       current = current->left;
+//     }
+
+
+
+
+//   }
+
+//   if(node->parent->left == node)
+//   {
+//     node->parent->left = temp;
+//   }
+//   else
+//   {
+//     node->parent->right = temp;
+//   }
+//   temp->parent = node->parent;
+//   data = node->data;
+//   free(node);
+//   return data;
+// }
+
+
+void tree_to_list(struct node* root)
 {
-  assert(node!=NULL);
-  struct node *temp = NULL;
-  struct node *current = node;
-  struct node *before = NULL;
-  int data = 0;
 
-  if(node->left == NULL)
-  {
-    temp = node->right;
-  }
-  else if(node->right == NULL)
-  {
-    temp = node->left;
-  }
-  else
-  {
-    while(current->left != NULL)
-    {
-      before = current;
-      current = current->left;
-    }
-
-
-
-
-  }
-
-  if(node->parent->left == node)
-  {
-    node->parent->left = temp;
-  }
-  else
-  {
-    node->parent->right = temp;
-  }
-  temp->parent = node->parent;
-  data = node->data;
-  free(node);
-  return data;
 }
-
 
 
 

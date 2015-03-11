@@ -15,7 +15,7 @@ typedef struct tree_elem {
 
 struct node {
     int data;
-    struct node* parent;
+    // struct node* parent;
     struct node* left;
     struct node* right;
 };
@@ -52,5 +52,7 @@ void level_order(struct node* node);
 
 void node_addr(struct node* node, int data, struct node** ret_node);
 int delete_node(struct node* node);
+
+void tree_to_list(struct node* root);
 
 #endif

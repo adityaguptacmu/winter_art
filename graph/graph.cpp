@@ -216,7 +216,6 @@ void Graph::BFS(int v) // DFS utility
 				queue.push_back(*i);
 			}
 		}
-
 	}
 }
 
@@ -287,10 +286,11 @@ void Graph::print_all_path_util(int s, int d, bool visited[], list<int> path)
 
 }
 
+
 static void print_parent(int parent[], int size)
 {
 	cout << "parent -> ";
-	for(int i = 1; i < size; i++)
+	for(int i = 0; i < size; i++)
 	{
 		cout << parent[i] << " ";
 	}
@@ -301,6 +301,7 @@ static void print_parent(int parent[], int size)
 int fordFulkerson(int graph[VER][VER], int s, int t)
 {
 	cout << "\n";
+	cout << "s : " << s << " t = " << t << endl;
 	int u, v;
 	int r_graph[VER][VER];
 
@@ -317,17 +318,30 @@ int fordFulkerson(int graph[VER][VER], int s, int t)
 	{
 		print_parent(parent, VER);
 		int path_flow = INT_MAX;
-
 		for (v = t; v != s; v = parent[v])
         {
             u = parent[v];
-            path_flow = min(path_flow, r_graph[u][v]);
+			cout << "F1 - v : " << v << " u = " << u << endl;
+            path_flow = min(path_flow, r_graph[u][v]); // 20 , 12,
+            cout << path_flow << endl;
         }
-        for (v=t; v != s; v=parent[v])
+
+        for(v = t; v != s; v = parent[v])
         {
             u = parent[v];
+			cout << "F2 - v : " << v << " u = " << u << endl;
             r_graph[u][v] -= path_flow;
             r_graph[v][u] += path_flow;
+        }
+
+
+        for(int i = 0; i < VER ; i++)
+        {
+        	for(int j = 0; j < VER; j++)
+        	{
+        		cout << r_graph[i][j] << "\t";
+        	}
+        	cout << endl;
         }
 
         max_flow += path_flow;
