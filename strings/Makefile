@@ -3,14 +3,11 @@
 #
 
 CC=g++
-CFLAGS=
-LDFLAGS=-m32
-OTHERDIR=
-
-SOURCES=v_func.cpp
-
+CFLAGS=-c -Wall -std=c++11
+LDFLAGS=
+SOURCES=strings.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=main
+EXECUTABLE=strings
 
 all: $(SOURCES) $(EXECUTABLE)
 
@@ -21,5 +18,5 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f *~ *.o main
+	rm -f *~ *.o strings core *.tar *.zip *.gzip *.bzip *.gz
 

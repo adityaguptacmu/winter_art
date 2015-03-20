@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
   const char* c_str();
   int count = 0;
 
-  string my_string = "ABCDEF";
+  string my_string = "aab";
 
   char* str = (char*)calloc(my_string.length(), sizeof(char));
 

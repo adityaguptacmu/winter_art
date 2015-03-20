@@ -1,10 +1,8 @@
 #include <iostream>
 #include <string>
 #include <cassert>
+
 using namespace std;
-
-
-
 
 class Base1
 {
@@ -19,7 +17,7 @@ class Derived : public Base1
 {
   public:
 
-  virtual int virt1() { return data1; }
+  virtual int virt1() { return 150; }
 
   int derivedData;
 };
@@ -30,7 +28,7 @@ int Global1( Base1 * b1 )
 }
 
 
-int main()
+int main(void)
 {
   Derived * d = new Derived;
 

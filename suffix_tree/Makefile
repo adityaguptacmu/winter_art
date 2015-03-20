@@ -3,12 +3,9 @@
 #
 
 CC=g++
-CFLAGS=
-LDFLAGS=-m32
-OTHERDIR=
-
-SOURCES=v_func.cpp
-
+CFLAGS=-c -Wall
+LDFLAGS=
+SOURCES=main.cpp suffix_tree.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=main
 
